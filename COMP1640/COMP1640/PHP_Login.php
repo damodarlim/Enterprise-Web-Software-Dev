@@ -43,7 +43,7 @@
 
 				if(isset($_SESSION['id']))
 				{
-					if($_SESSION['role'] == "Quality Assurance Coordinator" || $_SESSION['role'] == "Quality Assurance Manager")
+					if($_SESSION['role'] == "Quality Assurance Coordinator" || $_SESSION['role'] == "Quality Assurance Manager"|| $_SESSION['role'] == "Admin")
 					{
 						header('location: Admin_Dashboard.php');
 					}

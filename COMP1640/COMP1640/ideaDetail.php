@@ -21,12 +21,12 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto" >
                         <div class="idea mb-4">
-                            <h1 style="font-weight: bold;font-size: 3rem;"><?php echo $idea['ideaTitle']; ?></h1>
+                            <h1 style="font-weight: bold;font-size: 3rem;">Idea Title: <?php echo $idea['ideaTitle']; ?></h1>
                             <?php if($idea['anoymous'] == 0): ?>
-                            <h2 style="font-weight: bold;font-size: 1rem;"><?php echo $idea['userName'] ?></h2>
+                            <h2 style="font-weight: bold;font-size: 1rem;">Username: <?php echo $idea['userName'] ?></h2>
                             <?php endif ?>
                             <?php if($idea['anoymous'] == 1): ?>
-                            <h2 style="font-weight: bold;font-size: 1rem;">Anonymous Staff</h2>
+                            <h2 style="font-weight: bold;font-size: 1rem;">Username: Anonymous Staff</h2>
                             <?php endif ?>
                             <div class="row">
                                 <div class="col-lg-4">
@@ -61,7 +61,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="idea mb-4">
-                    <p style="font-size: 1.2rem;"><?php echo $idea['ideaDesc'] ?></p>
+                    <p style="font-size: 1.2rem;">Description: <?php echo $idea['ideaDesc'] ?></p>
                 </div>
             </div>
         </div>

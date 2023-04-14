@@ -2,7 +2,7 @@
     require_once('PHP_Logout.php');
     include('dbconnect.php');
 
-    if($_SESSION['role'] != "Quality Assurance Coordinator" && $_SESSION['role'] != "Quality Assurance Manager")
+    if($_SESSION['role'] != "Quality Assurance Coordinator" && $_SESSION['role'] != "Quality Assurance Manager"&& $_SESSION['role'] != "Admin")
     {
         header('location: Login.php');
     }

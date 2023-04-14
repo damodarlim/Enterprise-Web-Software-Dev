@@ -32,7 +32,7 @@
             ";
             
             $sender = "From: system <superadmin@comp1640.com>";
-            mail($to, $subject, $message, $sender);
+            //mail($to, $subject, $message, $sender);
             if (mail($to,$subject,$message,$sender))
             {
                 echo "<script>alert('Comment Posted Successful');</script>";

@@ -39,7 +39,7 @@
         `userID`, `startDate`, `endDate`, `finalClosureDate`, `anoymous`, `topicID`) VALUES ('$ideaTitle',
         '$ideaDesc','$ideaTnc','$ideaCate','$userID','$ideaStartDate','$ideaEndDate',
         '$ideaFinalDate', '$ideaAnnoymous', '$ideaTopic')";
-        echo $insertToIdeaSQL;
+        //echo $insertToIdeaSQL;
         //For Doc
         $target_dir = "Document/";
         $fileNames = array_filter($_FILES['uploadFile']['name']);

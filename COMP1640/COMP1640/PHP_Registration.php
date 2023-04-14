@@ -46,6 +46,7 @@ if(isset($_POST['btnsignup'])){
 						else
 						{
 							echo "<script>alert('Error');</script>";
+							echo "<script>window.location='Staff_Registration.php'</script>";
 						}
 					}
 					else
@@ -60,6 +61,7 @@ if(isset($_POST['btnsignup'])){
 			else
 			{
 				echo("<script>alert('Password NOT Match');</script>");
+				echo "<script>window.location='Staff_Registration.php'</script>";
 			}
 		}	
 }

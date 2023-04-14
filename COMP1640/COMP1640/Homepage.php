@@ -57,15 +57,17 @@
                 ?>">
                 <div class="abc">
                     <?php if($idea['anoymous'] == 0): ?>
-                        <p style="font-size: 1rem;"><?php echo $idea['userName'] ?></p>
+                        <p style="font-size: 1rem;">Username: <?php echo $idea['userName'] ?></p>
                     <?php elseif($idea['anoymous'] == 1): ?>
-                        <p style=" bold;font-size: 1rem;">Anonymous Staff</p>
+                        <p style=" bold;font-size: 1rem;">Username: Anonymous Staff</p>
                     <?php endif; ?>
-                    <p style="font-weight: bold;font-size: 1.55rem;"><?php echo $idea['userName']?></p>
+                    <p style="font-weight: bold;font-size: 1.55rem;">Idea Title: <?php echo $idea['ideaTitle']?></p>
+
                     <div class="row">
                         <div class="col-lg-4">
-                            <p style="font-size: 1rem;"><?php echo $idea['cateName'] ?></p>
-                            <p style="font-size: 1.5rem;"><?php echo $idea['ideaTitle'] ?></p>
+                            <p style="font-size: 1rem;">Category: <?php echo $idea['cateName'] ?></p>
+                            <p style="font-size: 1.25rem;">Description: <?php echo $idea['ideaDesc']?></p>
+
                         </div>
                         <div class="row col-lg-12">
                             <div class="col-lg-6" style="text-align: end;">

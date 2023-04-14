@@ -1,6 +1,8 @@
 <?php
 include('includes/adminHeader.php'); 
 include('includes/dbconnect.php');
+include('PHP_GetDataFromDB.php');
+include('PHP_DeleteStaff.php');
 ?>
 <?php
 if(isset($_POST['btnedit']))
@@ -22,34 +24,26 @@ if(isset($_POST['btnedit']))
   }
 }
 
-if(isset($_POST['btndelete']))
-	{
-		$_SESSION['DeleteUser'] = false;
-    $sessionUserID = $_SESSION['id'];
-    //echo "<script>alert($userID);</script>";
-		$userID= $_POST['btndelete'];
-    if( $sessionUserID == $userID)
-    {
-      echo '<script>alert("You are not allowed to delete your own profile.")</script>';
-    }
-    else
-    {
-      $sql = "DELETE FROM user_table WHERE userID = '$userID' ";
-      if (mysqli_query($conn, $sql)) {
-        $_SESSION['DeleteUser'] = true;
-            echo "<script>alert('User has been Removed');</script>";
-      } else {
-        echo "Error: " . mysqli_error($conn);
-      }
-    }
-	}
+if(isset($_POST['delete']))
+{
+      $userid=$_POST['delete'];
+echo $userid;
+  $sql = "DELETE FROM user_table where userID = '$userid'";
+
+  if (mysqli_query($conn, $sql)) {
+          echo "<script>alert('Staff Deleted');</script>";
+  } else {
+    echo "Error: " . mysqli_error($conn);
+  }
+}
+
 ?>
 <!-- Register User Modal -->
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Profile Data</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Admin Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -58,7 +52,7 @@ if(isset($_POST['btndelete']))
 
         <div class="modal-body">
 
-            <div class="form-group">
+            <div class="form-group row">
                   <label>User Name </label>
                   <input type="text" name="userName" class="form-control" placeholder="User Name" required>
             </div>
@@ -79,8 +73,7 @@ if(isset($_POST['btndelete']))
 									<option selected disabled>Select Role</option>
 									<option>Staff</option>
 									<option>Quality Assurance Coordinator</option>
-									<option>Quality Assurance Manager</option>
-                  <option>Admin</option>					  
+									<option>Quality Assurance Manager</option>			  
 								</select>
             </div>
             <div class="form-group">
@@ -158,8 +151,7 @@ if(isset($_POST['btndelete']))
 									<option selected disabled>Select Role</option>
 									<option>Staff</option>
 									<option>Quality Assurance Coordinator</option>
-									<option>Quality Assurance Manager</option>	
-                  <option>Admin</option>		  
+									<option>Quality Assurance Manager</option>			  
 								</select>
             </div>
             <div class="form-group">
@@ -185,29 +177,6 @@ if(isset($_POST['btndelete']))
     </div>
   </div>
 </div>
-
-<!-- Delete User Modal -->
-<form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" >Warning</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Confirm delete this user?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <button type="submit" id="btndelete" name="btndelete" class="btn btn-primary">Yes</button>
-                </div>
-                </div>
-            </div>
-        </div>    
-    </form>
 
 <!-- T&C Modal -->
 <div class="modal fade" id="Tnc" tabindex="-1" role="dialog" aria-labelledby="Tnc" aria-hidden="true">
@@ -239,7 +208,7 @@ if(isset($_POST['btndelete']))
               </div>
               <div class="pt-2">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile">
-              Add Profile 
+              Add Admin Profile 
             </button>
               </div>
           </div>
@@ -260,26 +229,26 @@ if(isset($_POST['btndelete']))
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-                                $sql = "SELECT * FROM user_table";
-                                $res_data = mysqli_query($conn,$sql);
-                                while($row = mysqli_fetch_array($res_data)){
-                                    echo("
-
-                  <tr>
-                      <td>".$row['userID']."</td>
-                      <td>".$row['userName']."</td>
-                      <td>".$row['userEmail']."</td>
-                      <td>".$row['userContact']."</td>
-                      <td>".$row['role']."</td>
-                      <td>".$row['department']."</td>
-                      <td><button type='button' class='edit btn btn-primary' data-toggle='modal' data-target='#editadminprofile'value=".$row["userID"]."><i class='fa fa-edit' aria-hidden='true'></i></button></td>
-                      <td><button type='button' class='remove btn btn-primary' data-toggle='modal' data-target='#deleteUserModal' value=".$row["userID"]."><i class='fa fa-trash' aria-hidden='true'></i></button></td>
-                  </tr>
-                  ");
-                }
-            ?>
-                </tbody>
+                        
+                        <?php foreach ($showStaff as $key => $staff): ?>
+                            <tr>
+                                <?php 
+                                
+                                    $thisStaffId = $staff['userID'];
+                                    
+                                ?>
+                                <td><?php echo $staff['userID'] ?></td>
+                                <td><?php echo $staff['userName'] ?></td>
+                                <td><?php echo $staff['userEmail'] ?></td>
+                                <td><?php echo $staff['userContact'] ?></td>
+                                <td><?php echo $staff['role'] ?></td>
+                                <td><?php echo $staff['department'] ?></td>
+                                <td><button type="button" class="edit btn btn-primary" data-toggle="modal" data-target="#editadminprofile" value="<?php echo $staff['userID']?>"> <i class="fa fa-edit" aria-hidden="true"></i></button></td>
+                                <td><button type="submit" name="delete" value="<?php echo $staff['userID']?>" class="btn btn-primary" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                            </tr>
+                        <?php endforeach ?>
+                        </tbody>
+               
             </table>
             </div>
             </div>
@@ -368,8 +337,7 @@ include('includes/adminFooter.php');
                                 <option disabled>Select Role</option>
                                 <option selected="selected">Staff</option>
                                 <option>Quality Assurance Coordinator</option>
-                                <option>Quality Assurance Manager</option>
-                              	<option>Admin</option>	
+                                <option>Quality Assurance Manager</option>		
                                 `;
                               }	  
                               else if(role == "Quality Assurance Coordinator")
@@ -378,8 +346,7 @@ include('includes/adminFooter.php');
                                 <option disabled>Select Role</option>
                                 <option>Staff</option>
                                 <option selected="selected">Quality Assurance Coordinator</option>
-                                <option>Quality Assurance Manager</option>	
-                                <option>Admin</option>		
+                                <option>Quality Assurance Manager</option>		
                                 `;
                               }
                               else if(role == "Quality Assurance Manager")
@@ -388,18 +355,7 @@ include('includes/adminFooter.php');
                                 <option disabled>Select Role</option>
                                 <option>Staff</option>
                                 <option>Quality Assurance Coordinator</option>
-                                <option selected="selected">Quality Assurance Manager</option>	
-                                <option>Admin</option>		
-                                `;
-                              }
-                              else if(role == "Admin")
-                              {
-                                formHTML+=`
-                                <option disabled>Select Role</option>
-                                <option>Staff</option>
-                                <option>Quality Assurance Coordinator</option>
-                                <option>Quality Assurance Manager</option>
-                                <option selected="selected">Admin</option>			
+                                <option selected="selected">Quality Assurance Manager</option>		
                                 `;
                               }
                               formHTML+=`
@@ -492,11 +448,15 @@ include('includes/adminFooter.php');
 	}
 
   const removeButton = document.querySelectorAll('.remove');
-removeButton.forEach(btn => {
-	btn.addEventListener('click', function handleClick(event) {
-		document.getElementById('btndelete').value=btn.value;
-	});
-});
+
+    removeButton.forEach(btn => {
+        btn.addEventListener('click', function handleClick(event) {
+            removeButton.forEach(btn => {
+                document.getElementById('btndelete').value=btn.value
+            });
+        });
+    });
+    
 </script>
 
 <style>
